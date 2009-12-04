@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{paperclip-dual-storage}
-  s.version = "2.3.1.1"
+  s.version = "2.3.1.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jon Yurek"]
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--line-numbers", "--inline-source"]
   s.require_paths = ["lib"]
   s.requirements = ["ImageMagick"]
-  s.rubyforge_project = %q{paperclip}
+  #s.rubyforge_project = %q{paperclip}
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{File attachments as attributes for ActiveRecord}
 

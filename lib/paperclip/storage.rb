@@ -38,7 +38,7 @@ module Paperclip
         @queued_for_write.each do |style, file|
           file.close
           FileUtils.mkdir_p(File.dirname(path(style)))
-          log("saving #{path(style)}")
+          log("saving #{path(style)} on local filesystem")
           FileUtils.mv(file.path, path(style))
           FileUtils.chmod(0644, path(style))
         end
@@ -48,7 +48,7 @@ module Paperclip
       def flush_deletes #:nodoc:
         @queued_for_delete.each do |path|
           begin
-            log("deleting #{path}")
+            log("deleting #{path} on local filesystem")
             FileUtils.rm(path) if File.exist?(path)
           rescue Errno::ENOENT => e
             # ignore file-not-found, let everything else pass
@@ -202,7 +202,7 @@ module Paperclip
       def flush_writes #:nodoc:
         @queued_for_write.each do |style, file|
           begin
-            log("saving #{path(style)}")
+            log("saving #{path(style)} to s3")
             AWS::S3::S3Object.store(path(style),
                                     file,
                                     bucket_name,
@@ -224,7 +224,7 @@ module Paperclip
       def flush_deletes #:nodoc:
         @queued_for_delete.each do |path|
           begin
-            log("deleting #{path}")
+            log("deleting #{path} from s3")
             AWS::S3::S3Object.delete(path, bucket_name)
           rescue AWS::S3::ResponseError
             # Ignore this.

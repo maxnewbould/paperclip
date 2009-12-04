@@ -45,7 +45,7 @@ end
 # documentation for Paperclip::ClassMethods for more useful information.
 module Paperclip
 
-  VERSION = "2.3.1.1"
+  VERSION = "2.3.1.7"
 
   class << self
     # Provides configurability to Paperclip. There are a number of options available, such as:
@@ -127,7 +127,7 @@ module Paperclip
     # Log a paperclip-specific line. Uses ActiveRecord::Base.logger
     # by default. Set Paperclip.options[:log] to false to turn off.
     def log message
-      logger.info("[paperclip] #{message}") if logging?
+      logger.info("[paperclip-dual] #{message}") if logging?
     end
 
     def logger #:nodoc:
@@ -332,14 +332,14 @@ module Paperclip
     end
 
     def save_attached_files
-      logger.info("[paperclip] Saving attachments.")
+      logger.info("[paperclip-dual] Saving attachments.")
       each_attachment do |name, attachment|
         attachment.send(:save)
       end
     end
 
     def destroy_attached_files
-      logger.info("[paperclip] Deleting attachments.")
+      logger.info("[paperclip-dual] Deleting attachments.")
       each_attachment do |name, attachment|
         attachment.send(:queue_existing_for_delete)
         attachment.send(:flush_deletes)

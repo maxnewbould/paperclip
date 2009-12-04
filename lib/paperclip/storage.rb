@@ -212,6 +212,11 @@ module Paperclip
           rescue AWS::S3::ResponseError => e
             raise
           end
+          file.close
+          FileUtils.mkdir_p(File.dirname(path(style)))
+          log("saving #{path(style)} locally")
+          FileUtils.mv(file.path, path(style))
+          FileUtils.chmod(0644, path(style))
         end
         @queued_for_write = {}
       end

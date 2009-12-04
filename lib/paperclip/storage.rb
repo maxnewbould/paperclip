@@ -143,7 +143,7 @@ module Paperclip
           @s3_protocol    = @options[:s3_protocol]    || (@s3_permissions == :public_read ? 'http' : 'https')
           @s3_headers     = @options[:s3_headers]     || {}
           @s3_host_alias  = @options[:s3_host_alias]
-          @url            = ":s3_path_url" unless @url.to_s.match(/^:s3.*url$/)
+          @url            = "/system/images/:id/:style/:basename-:timestamp.:extension" unless @url.to_s.match(/^:s3.*url$/)
           AWS::S3::Base.establish_connection!( @s3_options.merge(
             :access_key_id => @s3_credentials[:access_key_id],
             :secret_access_key => @s3_credentials[:secret_access_key]
@@ -213,10 +213,10 @@ module Paperclip
             raise
           end
           file.close
-          FileUtils.mkdir_p(File.dirname(path(style)))
-          log("saving #{path(style)} locally")
-          FileUtils.mv(file.path, path(style))
-          FileUtils.chmod(0644, path(style))
+          FileUtils.mkdir_p(File.dirname("public/system/images/#{path(style)}"))
+          log("saving public/system/images/#{path(style)} locally")
+          FileUtils.mv(file.path, "public/system/images/#{path(style)}")
+          FileUtils.chmod(0644, "public/system/images/#{path(style)}")
         end
         @queued_for_write = {}
       end

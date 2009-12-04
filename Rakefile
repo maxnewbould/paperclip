@@ -60,7 +60,7 @@ exclude_file_globs = ["test/s3.yml",
                       "test/tmp",
                       "test/tmp/*"]
 spec = Gem::Specification.new do |s| 
-  s.name              = "paperclip"
+  s.name              = "paperclip-dual-storage"
   s.version           = Paperclip::VERSION
   s.author            = "Jon Yurek"
   s.email             = "jyurek@thoughtbot.com"
@@ -70,7 +70,7 @@ spec = Gem::Specification.new do |s|
   s.files             = FileList[include_file_globs].to_a - FileList[exclude_file_globs].to_a
   s.require_path      = "lib"
   s.test_files        = FileList["test/**/test_*.rb"].to_a
-  s.rubyforge_project = "paperclip"
+  #s.rubyforge_project = "paperclip"
   s.has_rdoc          = true
   s.extra_rdoc_files  = FileList["README*"].to_a
   s.rdoc_options << '--line-numbers' << '--inline-source'
